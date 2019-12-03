@@ -1,4 +1,4 @@
-FROM alpine3.10 AS util
+FROM alpine:3.10.3 AS util
 
 RUN echo "nobody:x:65534:65534:Nobody:/:" > /etc_passwd
 
