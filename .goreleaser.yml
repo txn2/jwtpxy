@@ -57,10 +57,8 @@ dockers:
     image_templates:
       - "txn2/jwtpxy:latest"
       - "txn2/jwtpxy:{{ .Tag }}"
-      - "txn2/jwtpxy:v{{ .Tag }}"
-      - "txn2/jwtpxy:v{{ .Major }}"
+      - "txn2/jwtpxy:{{ .Major }}"
       - "txn2/jwtpxy:amd64-{{ .Tag }}"
-      - "txn2/jwtpxy:amd64-v{{ .Major }}"
     build_flag_templates:
       - "--label=org.label-schema.schema-version=1.0"
       - "--label=org.label-schema.version={{.Version}}"
