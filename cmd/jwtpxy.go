@@ -103,7 +103,7 @@ func (p *Proxy) handle(w http.ResponseWriter, r *http.Request) {
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		// @TODO map claims to headers from config
 		// @TODO config headers to preserve
-		r.Header = http.Header{}
+		r.Header.Del("From")
 		r.Header.Add("From", claims["preferred_username"].(string))
 	} else {
 		w.WriteHeader(http.StatusUnauthorized)
