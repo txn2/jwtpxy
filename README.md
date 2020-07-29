@@ -1,4 +1,7 @@
-# jwtpxy
+![jwtpxy.jpg](jwtpxy.jpg)
+
+# jwtpxy: JSON Web Token Reverse Proxy
+
 
 ## Development
 
