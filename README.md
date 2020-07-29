@@ -1,4 +1,4 @@
-![jwtpxy.jpg](jwtpxy.jpg)
+![jwtpxy.jpg](jwtpxy.png)
 
 # jwtpxy: JSON Web Token Reverse Proxy
 
