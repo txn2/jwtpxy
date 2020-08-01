@@ -4,20 +4,20 @@
 
 ## Environment Variable Configuration
 
-| Variable       | Default                                           | Description                   |
-|:---------------|:--------------------------------------------------|:------------------------------|
-| IP             | 127.0.0.1                                         | Server IP address to bind to. |
-| PORT           | 8080                                              | Server port.                  |
-| UTIL_PORT      | 8000                                              | Utility server port.          |
-| METRICS_PORT   | 2112                                              | Metrics port.                 |
-| READ_TIMEOUT   | 10                                                | HTTP read timeout             |
-| WRITE_TIMEOUT  | 10                                                | HTTP write timeout            |
-| DEBUG          | false                                             | Debug log level                              |
-| KEYCLOAK       | http://localhost:8090/auth/realms/master          | Keycloak realm info           |
-| BACKEND        | http://localhost:8000                             | Backend service                              |
-| HEADER_MAPPING | From:preferred_username,Realm-Access:realm_access | Mapping HTTPS headers to token attributes.                              |
-| REQUIRE_TOKEN  | true                                              | set to string "false" to allow un-authenticated pass-through.                              |
-| SIG_HEADER     | shared_secret_change_me                           | Signature header / shared secret                              |
+| Variable         | Default                                           | Description                                                   |
+|:-----------------|:--------------------------------------------------|:--------------------------------------------------------------|
+| `IP`             | 127.0.0.1                                         | Server IP address to bind to.                                 |
+| `PORT`           | 8080                                              | Server port.                                                  |
+| `UTIL_PORT`      | 8000                                              | Utility server port.                                          |
+| `METRICS_PORT`   | 2112                                              | Metrics port.                                                 |
+| `READ_TIMEOUT`   | 10                                                | HTTP read timeout                                             |
+| `WRITE_TIMEOUT`  | 10                                                | HTTP write timeout                                            |
+| `DEBUG`          | false                                             | Debug log level                                               |
+| `KEYCLOAK`       | http://localhost:8090/auth/realms/master          | Keycloak realm info                                           |
+| `BACKEND`        | http://localhost:8000                             | Backend service                                               |
+| `HEADER_MAPPING` | From:preferred_username,Realm-Access:realm_access | Mapping HTTPS headers to token attributes.                    |
+| `REQUIRE_TOKEN`  | true                                              | set to string "false" to allow un-authenticated pass-through. |
+| `SIG_HEADER`     | shared_secret_change_me                           | Signature header / shared secret                              |
 ## Development
 
 ### Test
