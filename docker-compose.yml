@@ -1,0 +1,16 @@
+# Use for testing jwtpxy and Keycloak
+version: '3'
+
+services:
+  server:
+    image: "jboss/keycloak:10.0.2"
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_HOSTNAME=localhost
+      - KEYCLOAK_USER=sysop
+      - KEYCLOAK_PASSWORD=password
+      - KEYSTORE_PASSWORD=true
+    volumes:
+      - ./data:/opt/jboss/keycloak/standalone/data
+    ports:
+      - "8090:8080"
