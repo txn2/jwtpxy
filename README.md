@@ -4,7 +4,7 @@
 
 `jwtpxy` simplifies API security by pre-validating and parsing JWT web tokens into HTTP headers easily read by backend services.
 
-![jwtpxy diagram](diag.png)
+![jwtpxy diagram](diag.jpg)
 
 ## Environment Variable Configuration
 
