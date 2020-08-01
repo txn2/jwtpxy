@@ -36,9 +36,9 @@ var (
 	debugEnv            = getEnv("DEBUG", "false")
 	keycloakEnv         = getEnv("KEYCLOAK", "http://localhost:8090/auth/realms/master")
 	backendEnv          = getEnv("BACKEND", "http://localhost:8000")
-	headerMappingsEnv   = getEnv("HEADER_MAPPING", "From:preferred_username,Realm-Access:realm_access,Groups:groups")
+	headerMappingsEnv   = getEnv("HEADER_MAPPING", "From:preferred_username,Realm-Access:realm_access")
 	requireTokenModeEnv = getEnv("REQUIRE_TOKEN", "true")
-	sigHeaderEnv        = getEnv("SIG_HEADER", "shared_secret")
+	sigHeaderEnv        = getEnv("SIG_HEADER", "shared_secret_change_me")
 )
 
 var Version = "0.0.0"
