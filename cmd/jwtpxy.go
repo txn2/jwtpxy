@@ -36,7 +36,7 @@ var (
 	debugEnv            = getEnv("DEBUG", "false")
 	keycloakEnv         = getEnv("KEYCLOAK", "http://localhost:8090/auth/realms/master")
 	backendEnv          = getEnv("BACKEND", "http://localhost:8000")
-	headerMappingsEnv   = getEnv("HEADER_MAPPING", "From:preferred_username,Realm-Access:realm_access")
+	headerMappingsEnv   = getEnv("HEADER_MAPPING", "From:preferred_username,Realm-Access:realm_access,Groups:groups")
 	requireTokenModeEnv = getEnv("REQUIRE_TOKEN", "true")
 	sigHeaderEnv        = getEnv("SIG_HEADER", "shared_secret_change_me")
 )
@@ -220,7 +220,8 @@ func main() {
 	uMux := http.NewServeMux()
 
 	// handlers / middleware
-	uMux.HandleFunc("/", utilHandler)
+	uMux.HandleFunc("/", utilJsonHandler)
+	uMux.HandleFunc("/dump", utilDumpHandler)
 
 	// Proxy Server
 	uSrv := &http.Server{
@@ -292,9 +293,16 @@ type debugToken struct {
 
 type tokenElm map[string]interface{}
 
-// utilHandler
+// utilDumpHandler
 // Utility service may be used for default backend when testing.
-func utilHandler(w http.ResponseWriter, r *http.Request) {
+func utilDumpHandler(w http.ResponseWriter, r *http.Request) {
+	_ = r.Write(w)
+}
+
+// utilJsonHandler
+// Utility service may be used for default backend when testing.
+func utilJsonHandler(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/json")
 
 	rd := requestDebug{

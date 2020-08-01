@@ -1,8 +1,10 @@
-![jwtpxy.jpg](jwtpxy.png)
+![jwtpxy logo](jwtpxy.png)
 
 # JSON Web Token Reverse Proxy
 
 `jwtpxy` simplifies API security by pre-validating and parsing JWT web tokens into HTTP headers easily read by backend services.
+
+![jwtpxy diagram](diag.png)
 
 ## Environment Variable Configuration
 
