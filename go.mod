@@ -1,6 +1,6 @@
 module github.com/txn2/jwtpxy
 
-go 1.13
+go 1.15
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
