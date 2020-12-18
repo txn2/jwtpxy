@@ -210,10 +210,16 @@ func main() {
 
 	// Proxy Server
 	pxySrv := &http.Server{
-		Addr:         *ip + ":" + *port,
-		Handler:      pMux,
-		ReadTimeout:  time.Duration(*readTimeout) * time.Second,
-		WriteTimeout: time.Duration(*writeTimeout) * time.Second,
+		Addr:    *ip + ":" + *port,
+		Handler: pMux,
+	}
+
+	if *readTimeout > 0 {
+		pxySrv.ReadTimeout = time.Duration(*readTimeout) * time.Second
+	}
+
+	if *writeTimeout > 0 {
+		pxySrv.WriteTimeout = time.Duration(*writeTimeout) * time.Second
 	}
 
 	// util mux
