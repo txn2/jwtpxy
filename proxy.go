@@ -120,5 +120,8 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 		zap.String("path", reqPath),
 		zap.String("time", end.Format(time.RFC3339)),
 		zap.Duration("latency", latency),
+		zap.Bool("admit", admit),
+		zap.Any("header", r.Header),
+		zap.String("token", tokenString),
 	)
 }
