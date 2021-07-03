@@ -23,10 +23,10 @@ builds:
 
 nfpms:
   - file_name_template: '{{ .ProjectName }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-    homepage:  https://github.com/txn2/kubefwd
-    description: Kubernetes bulk port forwarding utility.
+    homepage:  https://github.com/txn2/jwtpxy
+    description: JWT reverse proxy.
     maintainer: Craig Johnston https://twitter.com/cjimti
-    license: Apache 2.0
+    license: MIT
     vendor: https://github.com/txn2
     formats:
       - apk
