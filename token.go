@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
-	"strings"
 
 	"github.com/dgrijalva/jwt-go"
 	"go.uber.org/zap"
@@ -18,11 +17,7 @@ type TokenMapping struct {
 	TokenValue interface{}
 }
 
-func (p *Proxy) ProxyTokenHandler(r *http.Request) error {
-
-	// process JWT
-	authHeader := r.Header.Get("Authorization")
-	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+func (p *Proxy) ProxyTokenHandler(r *http.Request, tokenString string) error {
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		// WARNING: always validate that the alg is what we expect

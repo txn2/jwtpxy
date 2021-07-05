@@ -38,12 +38,13 @@ var (
 	backendEnv          = getEnv("BACKEND", "http://localhost:8000")
 	headerMappingsEnv   = getEnv("HEADER_MAPPING", "From:preferred_username,Realm-Access:realm_access,Groups:groups")
 	requireTokenModeEnv = getEnv("REQUIRE_TOKEN", "true")
+	allowCookieTokenEnv = getEnv("ALLOW_COOKIE_TOKEN", "false")
+	cookieTokenNameEnv  = getEnv("COOKIE_TOKEN_NAME", "jwt")
 	sigHeaderEnv        = getEnv("SIG_HEADER", "shared_secret_change_me")
 )
 
 var Version = "0.0.0"
 
-// Realm info from Keycloak
 type RealmInfo struct {
 	Realm           string `json:"realm"`
 	PublicKey       string `json:"public_key"`
@@ -85,6 +86,8 @@ func main() {
 		sigHeader        = flag.String("sigHeader", sigHeaderEnv, "Signature header / shared secret")
 		requireTokenMode = flag.String("requireTokenMode", requireTokenModeEnv, "set to string \"false\" to allow un-authenticated pass-through.")
 		headerMappings   = flag.String("headerMappings", headerMappingsEnv, "Mapping HTTPS headers to token attributes.")
+		allowCookieToken = flag.String("allowCookieToken", allowCookieTokenEnv, "Allow cookie tokens.")
+		cookieTokenName  = flag.String("cookieTokenName", cookieTokenNameEnv, "Cookie token name.")
 	)
 	flag.Parse()
 
@@ -200,6 +203,8 @@ func main() {
 		RequireTokenMode: *requireTokenMode,
 		TokenMappings:    tknMappings,
 		SigHeader:        *sigHeader,
+		CookieTokenName:  *cookieTokenName,
+		AllowCookieToken: *allowCookieToken,
 	}
 
 	// proxy mux

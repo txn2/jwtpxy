@@ -26,6 +26,8 @@ type Proxy struct {
 	RequireTokenMode string
 	SigHeader        string
 	TokenMappings    []TokenMapping
+	AllowCookieToken string
+	CookieTokenName  string
 }
 
 type JWTConfig struct {
@@ -78,8 +80,16 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 	authHeader := r.Header.Get("Authorization")
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
+	// if Bearer token is empty and cookie token is true.
+	if tokenString != "" && p.AllowCookieToken == "true" {
+		tokenCookie, _ := r.Cookie(p.CookieTokenName)
+		if tokenCookie != nil && tokenCookie.Secure && tokenCookie.HttpOnly {
+			tokenString = tokenCookie.String()
+		}
+	}
+
 	if tokenString != "" {
-		err := p.ProxyTokenHandler(r)
+		err := p.ProxyTokenHandler(r, tokenString)
 		if err != nil {
 			// fail
 			admit = false
@@ -93,7 +103,7 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 
 	// is requireTokenMode is true then a token is required
 	// return unauthorized
-	if tokenString == "" && requireTokenMode == "true" {
+	if admit && tokenString == "" && requireTokenMode == "true" {
 		// fail
 		admit = false
 
