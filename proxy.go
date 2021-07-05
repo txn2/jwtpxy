@@ -83,8 +83,9 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 	// if Bearer token is empty and cookie token is true.
 	if tokenString != "" && p.AllowCookieToken == "true" {
 		tokenCookie, _ := r.Cookie(p.CookieTokenName)
-		if tokenCookie != nil && tokenCookie.Secure && tokenCookie.HttpOnly {
+		if tokenCookie != nil {
 			tokenString = tokenCookie.String()
+			p.Logger.Debug("Got token cookie", zap.String("cookie", tokenString))
 		}
 	}
 
