@@ -98,7 +98,7 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 		tokenCookie, _ := r.Cookie(p.CookieTokenName)
 		if tokenCookie != nil {
 			r.Header.Add(TokenLocationHeader, "Cookie")
-			tokenString = tokenCookie.String()
+			tokenString = tokenCookie.Value
 			p.Logger.Debug("Got token cookie", zap.String("cookie", tokenString))
 		}
 	}
@@ -106,6 +106,9 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 	if tokenString != "" {
 		err := p.ProxyTokenHandler(r, tokenString)
 		if err != nil {
+			p.Logger.Debug("ProxyTokenHandler Error",
+				zap.String("tokenString", tokenString),
+				zap.Error(err))
 			// fail
 			admit = false
 
