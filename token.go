@@ -12,14 +12,12 @@ import (
 	"go.uber.org/zap"
 )
 
-// TokenMapping
 type TokenMapping struct {
 	Header     string
 	TokenKey   string
 	TokenValue interface{}
 }
 
-// ProxyTokenHandler
 func (p *Proxy) ProxyTokenHandler(r *http.Request) error {
 
 	// process JWT

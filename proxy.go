@@ -17,7 +17,6 @@ const StatusHeader = "JwtPxy-Token-Status"
 const RequireTokenModeHeader = "JwtPxy-Require-Token-Mode"
 const SignatureHeader = "JwtPxy-Signature"
 
-// Proxy
 type Proxy struct {
 	Target           *url.URL
 	Proxy            *httputil.ReverseProxy
@@ -29,19 +28,16 @@ type Proxy struct {
 	TokenMappings    []TokenMapping
 }
 
-// JWTConfig
 type JWTConfig struct {
 	PublicKey *rsa.PublicKey `json:"public_key"`
 }
 
-// Pmx
 type Pmx struct {
 	Requests  prometheus.Counter
 	Latency   prometheus.Summary
 	AuthFails prometheus.Counter
 }
 
-// handle requests
 func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 
 	var admit = true
@@ -81,6 +77,7 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 	// not a token we check requireTokenMode for "false"
 	authHeader := r.Header.Get("Authorization")
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+
 	if tokenString != "" {
 		err := p.ProxyTokenHandler(r)
 		if err != nil {
