@@ -16,6 +16,9 @@ const HeadersHeader = "JwtPxy-Headers"
 const StatusHeader = "JwtPxy-Token-Status"
 const RequireTokenModeHeader = "JwtPxy-Require-Token-Mode"
 const SignatureHeader = "JwtPxy-Signature"
+const VersionHeader = "JwtPxy-Version"
+const TokenLocationHeader = "JwtPxy-Token-Location"
+const CookieNameHeader = "JwtPxy-Cookie-Name"
 
 type Proxy struct {
 	Target           *url.URL
@@ -28,6 +31,7 @@ type Proxy struct {
 	TokenMappings    []TokenMapping
 	AllowCookieToken string
 	CookieTokenName  string
+	Version          string
 }
 
 type JWTConfig struct {
@@ -66,7 +70,12 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 	r.Header.Add(HeadersHeader, StatusHeader)
 	r.Header.Add(HeadersHeader, RequireTokenModeHeader)
 	r.Header.Add(HeadersHeader, SignatureHeader)
+	r.Header.Add(HeadersHeader, VersionHeader)
+	r.Header.Add(HeadersHeader, TokenLocationHeader)
+	r.Header.Add(HeadersHeader, CookieNameHeader)
 
+	r.Header.Add(VersionHeader, p.Version)
+	r.Header.Add(CookieNameHeader, p.CookieTokenName)
 	r.Header.Add(SignatureHeader, p.SigHeader)
 	r.Header.Add(RequireTokenModeHeader, requireTokenMode)
 
@@ -80,10 +89,15 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 	authHeader := r.Header.Get("Authorization")
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
+	if tokenString != "" {
+		r.Header.Add(TokenLocationHeader, "Authorization")
+	}
+
 	// if Bearer token is empty and cookie token is true.
 	if tokenString == "" && p.AllowCookieToken == "true" {
 		tokenCookie, _ := r.Cookie(p.CookieTokenName)
 		if tokenCookie != nil {
+			r.Header.Add(TokenLocationHeader, "Cookie")
 			tokenString = tokenCookie.String()
 			p.Logger.Debug("Got token cookie", zap.String("cookie", tokenString))
 		}
