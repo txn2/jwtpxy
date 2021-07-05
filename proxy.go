@@ -81,7 +81,7 @@ func (p *Proxy) Handle(w http.ResponseWriter, r *http.Request) {
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
 	// if Bearer token is empty and cookie token is true.
-	if tokenString != "" && p.AllowCookieToken == "true" {
+	if tokenString == "" && p.AllowCookieToken == "true" {
 		tokenCookie, _ := r.Cookie(p.CookieTokenName)
 		if tokenCookie != nil {
 			tokenString = tokenCookie.String()
