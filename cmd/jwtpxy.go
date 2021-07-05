@@ -205,6 +205,7 @@ func main() {
 		SigHeader:        *sigHeader,
 		CookieTokenName:  *cookieTokenName,
 		AllowCookieToken: *allowCookieToken,
+		Version:          Version,
 	}
 
 	// proxy mux
