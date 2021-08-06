@@ -18,8 +18,7 @@ import (
 
 	"github.com/txn2/jwtpxy"
 
-	"github.com/dgrijalva/jwt-go"
-
+	"github.com/golang-jwt/jwt"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
